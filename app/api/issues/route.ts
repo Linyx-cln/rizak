@@ -67,6 +67,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
 
+    // Only regular users can create issues, admins cannot
+    if (profile.role === 'admin') {
+      return NextResponse.json(
+        { error: 'Admins cannot create issues' },
+        { status: 403 }
+      );
+    }
+
     const { title, description, priority, assigned_to } = await request.json();
 
     if (!title || !priority) {

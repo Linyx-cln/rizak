@@ -25,12 +25,14 @@ export default async function IssuesPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-center mb-8">
           <h2 className="text-3xl font-bold text-gray-900">Issues</h2>
-          <a
-            href="/issues/new"
-            className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-          >
-            Create Issue
-          </a>
+          {profile.role !== 'admin' && (
+            <a
+              href="/issues/new"
+              className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+            >
+              Create Issue
+            </a>
+          )}
         </div>
 
         <IssuesList userRole={profile.role} />

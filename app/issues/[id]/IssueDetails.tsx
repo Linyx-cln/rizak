@@ -203,21 +203,23 @@ export default function IssueDetails({
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
-                <select
-                  value={formData.assigned_to}
-                  onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900"
-                >
-                  <option value="">Unassigned</option>
-                  {users.filter(u => u.role === 'admin').map((user) => (
-                    <option key={user.id} value={user.id}>
-                      {user.full_name || user.email}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              {currentUserRole === 'admin' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Assign To</label>
+                  <select
+                    value={formData.assigned_to}
+                    onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900"
+                  >
+                    <option value="">Unassigned</option>
+                    {users.filter(u => u.role === 'admin').map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.full_name || user.email}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
             </div>
 
             <div className="flex gap-4">

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Profile } from '@/types';
 
-export default function NewIssueForm({ users }: { users: Profile[] }) {
+export default function NewIssueForm({ users, currentUserRole }: { users: Profile[], currentUserRole: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -98,24 +98,26 @@ export default function NewIssueForm({ users }: { users: Profile[] }) {
         </select>
       </div>
 
-      <div>
-        <label htmlFor="assigned_to" className="block text-sm font-medium text-gray-700 mb-1">
-          Assign To
-        </label>
-        <select
-          id="assigned_to"
-          value={formData.assigned_to}
-          onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900"
-        >
-          <option value="">Unassigned</option>
-          {users.filter(u => u.role === 'admin').map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.full_name || user.email} (Admin)
-            </option>
-          ))}
-        </select>
-      </div>
+      {currentUserRole === 'admin' && (
+        <div>
+          <label htmlFor="assigned_to" className="block text-sm font-medium text-gray-700 mb-1">
+            Assign To
+          </label>
+          <select
+            id="assigned_to"
+            value={formData.assigned_to}
+            onChange={(e) => setFormData({ ...formData, assigned_to: e.target.value })}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 text-gray-900"
+          >
+            <option value="">Unassigned</option>
+            {users.filter(u => u.role === 'admin').map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.full_name || user.email} (Admin)
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div className="flex gap-4">
         <button

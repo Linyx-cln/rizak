@@ -55,11 +55,15 @@ export default async function IssueDetailPage({ params }: { params: Promise<{ id
     console.error('Error fetching comments:', commentsError);
   }
 
-  // Fetch all users for assignment
-  const { data: users, error: usersError } = await db
-    .from('profiles')
-    .select('id, email, full_name, role, created_at, updated_at')
-    .order('full_name', { ascending: true });
+  // Only fetch users for assignment if current user is admin
+  let users: any[] = [];
+  if (profile.role === 'admin') {
+    const { data: usersData } = await db
+      .from('profiles')
+      .select('id, email, full_name, role, created_at, updated_at')
+      .order('full_name', { ascending: true });
+    users = usersData || [];
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -69,7 +73,7 @@ export default async function IssueDetailPage({ params }: { params: Promise<{ id
         <IssueDetails
           issue={issue}
           comments={comments || []}
-          users={users || []}
+          users={users}
           currentUserId={user.id}
           currentUserRole={profile.role}
         />

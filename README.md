@@ -9,7 +9,7 @@ A full-stack issue tracking system built with Next.js, Supabase, and TypeScript.
 - **Issue Management** - Create, read, update, and delete issues
 - **Role-Based Access Control**
   - **Users**: Can only view and manage their own issues
-  - **Admins**: Can view, manage, and comment on all issues
+  - **Admins**: Can view and comment on all issues
 - **Comments System** - Add comments to issues for collaboration
 - **Dashboard** - Visual analytics with charts showing issue statistics
 - **Email Invitations** - Admins can invite new users via email
@@ -28,16 +28,14 @@ A full-stack issue tracking system built with Next.js, Supabase, and TypeScript.
 - View all issues from all users
 - Comment on any issue
 - Invite new users with specific roles
-- Assign issues to admins
-- Full CRUD operations on all issues
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Next.js 15** - React framework with App Router
+- **Next.js 15**
 - **React 19** - UI library
 - **TypeScript** - Type safety
-- **TailwindCSS** - Utility-first CSS framework
+- **TailwindCSS** - CSS framework
 - **Recharts** - Data visualization for dashboard
 
 ### Backend
@@ -45,7 +43,6 @@ A full-stack issue tracking system built with Next.js, Supabase, and TypeScript.
 - **Supabase** - Backend-as-a-Service
   - Authentication
   - PostgreSQL Database
-  - Real-time subscriptions
 - **Nodemailer** - Email sending for invitations
 
 ### Database
@@ -136,7 +133,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Regular User
 - ✅ Register and login
-- ✅ Create their own issues
+- ✅ Create issues
 - ✅ View only their own issues
 - ✅ Update their own issues (title, description, priority, status)
 - ✅ Delete their own issues
@@ -145,15 +142,18 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - ✅ Change password
 - ❌ Cannot see other users' issues
 - ❌ Cannot invite users
+- ❌ Cannot assign issues to others
+- ❌ Cannot see list of other users
 
 ### Admin
-- ✅ All user permissions
 - ✅ View all issues from all users
 - ✅ Comment on any issue
-- ✅ Delete any issue
 - ✅ Invite new users via email
-- ✅ Assign issues to admins
 - ✅ View global dashboard statistics
+- ❌ Cannot create issues
+- ❌ Cannot edit any issues
+- ❌ Cannot delete any issues
+- ❌ Cannot see list of other users (only admins for assignment)
 
 ## 📱 Application Pages
 
@@ -425,10 +425,4 @@ npm run lint         # Run ESLint
 
 MIT
 
-## 👤 Author
 
-Lincoln Waweru
-
----
-
-Built with ❤️ using Next.js and Supabase
